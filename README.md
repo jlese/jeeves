@@ -12,20 +12,29 @@ Markdown). Primary target is Claude Code's plugin marketplace format.
 /plugin marketplace add <owner>/jeeves
 /plugin install git-flow@jeeves
 /plugin install research@jeeves
+/plugin install superpowers@jeeves
 ```
 
 ## Install (other harnesses / manual)
 
 ```
 git clone https://github.com/<owner>/jeeves ~/jeeves
-ln -s ~/jeeves/plugins/git-flow/skills  ~/.claude/skills/git-flow
-ln -s ~/jeeves/plugins/research/skills  ~/.claude/skills/research
+ln -s ~/jeeves/plugins/git-flow/skills     ~/.claude/skills/git-flow
+ln -s ~/jeeves/plugins/research/skills     ~/.claude/skills/research
+ln -s ~/jeeves/plugins/superpowers/skills  ~/.claude/skills/superpowers
 ```
 
-## Recommended companions
+## Plugins
 
-- **[obra/superpowers](https://github.com/obra/superpowers)** — SDLC skills
-  (planning, brainstorming, debugging, refactoring). Drop in `~/.claude/skills/`.
+- **git-flow** — `conventional-commits`, `pr-writeup`, `bisect-a-bug`,
+  `/ship` command, `code-reviewer` subagent.
+- **research** — `scout-codebase`.
+- **superpowers** — 14 SDLC skills (planning, debugging, TDD, code review,
+  worktrees). Vendored from [obra/superpowers](https://github.com/obra/superpowers),
+  MIT. See [plugins/superpowers/](plugins/superpowers/).
+
+## Recommended companions (not bundled)
+
 - **[ccusage](https://github.com/ryoppippi/ccusage)** — spend visibility
   (`npx ccusage@latest` or install globally).
 - **[caveman](https://github.com/gnomeba/caveman)** — aggressive context
