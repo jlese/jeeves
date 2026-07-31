@@ -1,68 +1,90 @@
 # Jeeves
 
-Personal marketplace of reusable agent skills, subagents, and slash commands.
+Personal marketplace of reusable Copilot customizations — instructions, prompts,
+custom agents, and skills. Aimed at Claude in GitHub Copilot (VS Code), but the
+files work in any harness that consumes the same Markdown formats.
+
 Named after the butler — quiet, competent, remembers what you like.
-
-Portable across Claude Code, Codex CLI, Cursor, Gemini CLI (everything's just
-Markdown). Primary target is Claude Code's plugin marketplace format.
-
-## Install (Claude Code)
-
-```
-/plugin marketplace add <owner>/jeeves
-/plugin install git-flow@jeeves
-/plugin install research@jeeves
-/plugin install superpowers@jeeves
-```
-
-## Install (other harnesses / manual)
-
-```
-git clone https://github.com/<owner>/jeeves ~/jeeves
-ln -s ~/jeeves/plugins/git-flow/skills     ~/.claude/skills/git-flow
-ln -s ~/jeeves/plugins/research/skills     ~/.claude/skills/research
-ln -s ~/jeeves/plugins/superpowers/skills  ~/.claude/skills/superpowers
-```
-
-## Plugins
-
-- **git-flow** — `conventional-commits`, `pr-writeup`, `bisect-a-bug`,
-  `/ship` command, `code-reviewer` subagent.
-- **research** — `scout-codebase`.
-- **discipline** — `contract-first-code`, `doc-discipline`, `test-discipline`.
-  Portable code-quality rules for Python codebases.
-- **superpowers** — 14 SDLC skills (planning, debugging, TDD, code review,
-  worktrees). Vendored from [obra/superpowers](https://github.com/obra/superpowers),
-  MIT. See [plugins/superpowers/](plugins/superpowers/).
-
-## Recommended companions (not bundled)
-
-- **[ccusage](https://github.com/ryoppippi/ccusage)** — spend visibility
-  (`npx ccusage@latest` or install globally).
-- **[caveman](https://github.com/gnomeba/caveman)** — aggressive context
-  compression. Optional; add if you're brushing token limits.
 
 ## Layout
 
 ```
-.claude-plugin/marketplace.json    # marketplace manifest
-plugins/<name>/                     # one plugin per situation
-  .claude-plugin/plugin.json
-  skills/<skill>/SKILL.md
-  commands/<name>.md
-  agents/<name>.md
-templates/                          # copy-paste starters
-snippets/                           # non-skill prompts
-scripts/                            # new-skill, validate
+instructions/  *.instructions.md   scoped guidelines (applyTo globs)
+prompts/       *.prompt.md         slash-command tasks
+agents/        *.agent.md          custom subagents
+skills/        <name>/SKILL.md     multi-step workflows with bundled assets
+templates/     *.tmpl              copy-paste starters
+scripts/       install / validate  install and lint helpers
 ```
 
-## Adding a skill
+## Install
+
+### Once per machine (user profile — roams via Settings Sync)
 
 ```
-./scripts/new-skill.sh <plugin> <skill-name>
+git clone https://github.com/jlese/jeeves ~/jeeves
+~/jeeves/scripts/install-user.sh
 ```
 
-Then edit the generated `SKILL.md`. Run `./scripts/validate.sh` before pushing.
+Symlinks every `*.prompt.md`, `*.instructions.md`, `*.agent.md` into
+`~/Library/Application Support/Code/User/prompts/` and every skill into
+`~/.copilot/skills/`. Re-run any time to resync.
+
+### Per repo (project-scoped `.github/`)
+
+```
+~/jeeves/scripts/install-workspace.sh ~/path/to/repo         # symlink
+~/jeeves/scripts/install-workspace.sh ~/path/to/repo --copy  # independent copies
+```
+
+Populates `.github/{prompts,instructions,agents,skills}/`. Also seeds a starter
+`AGENTS.md` if the repo doesn't have one.
+
+## What's included
+
+### Instructions (`applyTo: **/*.py`)
+
+- `contract-first-code` — Preconditions/Postconditions in the docstring before
+  the body, 60-line function limit, complexity ≤ 8.
+- `doc-discipline` — docstrings are source of truth; `docs/` summarizes contracts.
+- `test-discipline` — every contract bullet has a test; `test_ac_*` for
+  acceptance criteria.
+
+### Prompts
+
+- `/conventional-commit` — Conventional Commit from a staged diff.
+- `/pr-writeup` — PR title + body from a branch diff.
+- `/ship` — full stage → commit → push → PR pipeline.
+- `/bisect-a-bug` — guided `git bisect`.
+- `/scout-codebase` — recon an unfamiliar area, return a file:line map.
+
+### Agents
+
+- `code-reviewer` — read-only pre-PR reviewer, ranks findings blocker/warning/nit.
+
+### Skills
+
+- 14 SDLC skills vendored from [obra/superpowers](https://github.com/obra/superpowers)
+  (planning, brainstorming, debugging, TDD, code review, worktrees). MIT.
+  See [NOTICE](NOTICE) for attribution.
+
+## Adding a new customization
+
+```
+./scripts/new.sh prompt       my-task
+./scripts/new.sh instructions my-lang-rules
+./scripts/new.sh agent        my-specialist
+./scripts/new.sh skill        my-workflow
+```
+
+Edit, then `./scripts/validate.sh` before pushing.
+
+## Recommended companions (not bundled)
+
+- **[ccusage](https://github.com/ryoppippi/ccusage)** — spend visibility
+  (`npx ccusage@latest`).
+- **[caveman](https://github.com/gnomeba/caveman)** — aggressive context
+  compression if you're brushing token limits.
 
 ## Conventions
 

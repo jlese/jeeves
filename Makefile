@@ -1,7 +1,13 @@
-.PHONY: new-skill validate
+.PHONY: new validate install-user install-workspace
 
-new-skill:
-	@./scripts/new-skill.sh $(PLUGIN) $(NAME)
+new:
+	@./scripts/new.sh $(KIND) $(NAME)
 
 validate:
 	@./scripts/validate.sh
+
+install-user:
+	@./scripts/install-user.sh
+
+install-workspace:
+	@./scripts/install-workspace.sh $(TARGET) $(MODE)

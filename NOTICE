@@ -1,0 +1,6 @@
+Jeeves includes third-party code:
+
+- `skills/` contains skills copied from https://github.com/obra/superpowers
+  (Copyright 2025 Jesse Vincent, MIT License). See
+  [_SUPERPOWERS-LICENSE](skills/_SUPERPOWERS-LICENSE) and
+  [_SUPERPOWERS-README.md](skills/_SUPERPOWERS-README.md).
