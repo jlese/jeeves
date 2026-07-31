@@ -1,0 +1,15 @@
+{
+  "name": "jeeves",
+  "plugins": [
+    {
+      "name": "git-flow",
+      "source": "./plugins/git-flow",
+      "description": "Commit, PR, and bisect helpers for a git-first workflow."
+    },
+    {
+      "name": "research",
+      "source": "./plugins/research",
+      "description": "Scout-style codebase and topic reconnaissance."
+    }
+  ]
+}

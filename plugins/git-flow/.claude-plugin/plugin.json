@@ -1,0 +1,5 @@
+{
+  "name": "git-flow",
+  "version": "0.1.0",
+  "description": "Commit, PR, and bisect helpers for a git-first workflow."
+}
