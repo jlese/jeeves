@@ -12,6 +12,11 @@
       "description": "Scout-style codebase and topic reconnaissance."
     },
     {
+      "name": "discipline",
+      "source": "./plugins/discipline",
+      "description": "Contract-first, doc, and test discipline rules. Python-focused."
+    },
+    {
       "name": "superpowers",
       "source": "./plugins/superpowers",
       "description": "SDLC skills (planning, debugging, TDD, code review, worktrees). Vendored from obra/superpowers."

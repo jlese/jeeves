@@ -7,6 +7,28 @@ Conventions for agents working in this repo. Follows [agents.md](https://agents.
 A personal library of Claude Code / Codex / Cursor skills, subagents, and
 commands. Every unit is Markdown. No build step. No runtime.
 
+## Universal principles (apply to every skill and to code any Jeeves-installed agent writes)
+
+Distilled from the `discipline` plugin. Apply everywhere.
+
+1. **Contract first.** State what a unit guarantees before writing its body.
+   For code: Preconditions/Postconditions in the docstring. For a skill:
+   "when to use" and "how to verify" in `SKILL.md`.
+2. **Single responsibility.** If a unit guarantees more than three things, split it.
+3. **Docs summarize contracts; contracts live at the source.** Docstring is
+   truth for code. `SKILL.md` frontmatter is truth for skills.
+4. **Every guarantee has a proof.** Code: a test per Postconditions bullet.
+   Skill: a verifiable step in "how to verify".
+5. **Limits are design signals, not ceilings.** 60-line functions, 3-level
+   nesting, ~300-line skills. Exceeded = split, not raise.
+6. **No silent bypasses.** No `# noqa` without justification. No `--no-verify`.
+   No suppressed lints. No skipped tests without an issue link.
+7. **Assistant tone.** Blunt, point out bad assumptions and likely bugs. Do not
+   just agree. Plain text in terminal instructions unless code is being written.
+
+Agents working on a Python codebase should invoke `discipline/contract-first-code`,
+`discipline/doc-discipline`, and `discipline/test-discipline` for the full rules.
+
 ## Commands
 
 - `./scripts/new-skill.sh <plugin> <skill-name>` — scaffold a new skill from

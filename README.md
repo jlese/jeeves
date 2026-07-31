@@ -29,6 +29,8 @@ ln -s ~/jeeves/plugins/superpowers/skills  ~/.claude/skills/superpowers
 - **git-flow** — `conventional-commits`, `pr-writeup`, `bisect-a-bug`,
   `/ship` command, `code-reviewer` subagent.
 - **research** — `scout-codebase`.
+- **discipline** — `contract-first-code`, `doc-discipline`, `test-discipline`.
+  Portable code-quality rules for Python codebases.
 - **superpowers** — 14 SDLC skills (planning, debugging, TDD, code review,
   worktrees). Vendored from [obra/superpowers](https://github.com/obra/superpowers),
   MIT. See [plugins/superpowers/](plugins/superpowers/).
